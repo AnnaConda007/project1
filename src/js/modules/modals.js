@@ -5,8 +5,8 @@ function bindModal(triggerSelector, modalSelector, closeSelector){
         let triggers = document.querySelectorAll(triggerSelector)
         let  modal = document.querySelector(modalSelector)
         let close = document.querySelector(closeSelector)
-        triggers.forEach((item)=>{
-            item.addEventListener("click", (e)=>{
+        triggers.forEach((trigger)=>{
+            trigger.addEventListener("click", (e)=>{
                 if(e.target){
                  e.preventDefault()
                 }
