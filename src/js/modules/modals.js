@@ -2,9 +2,9 @@ const modals = function(){    /* это функциональное выраж�
 передается в main.js и далее вызывается в функции при полной загрузке DOM*/
   
 function bindModal(triggerSelector, modalSelector, closeSelector){
-        let triggers = document.querySelectorAll(triggerSelector)
-        let  modal = document.querySelector(modalSelector)
-        let close = document.querySelector(closeSelector)
+        const triggers = document.querySelectorAll(triggerSelector)
+        const  modal = document.querySelector(modalSelector)
+        const close = document.querySelector(closeSelector)
         triggers.forEach((trigger)=>{
             trigger.addEventListener("click", (e)=>{
                 if(e.target){
@@ -15,7 +15,7 @@ function bindModal(triggerSelector, modalSelector, closeSelector){
             })
         })
 
-        let closeModal = ()=>{
+        const closeModal = ()=>{
             modal.style.display = "none"
             document.body.classList.remove("modal-open") 
         }
@@ -27,7 +27,7 @@ function bindModal(triggerSelector, modalSelector, closeSelector){
             modal.addEventListener("click", ()=>{ 
                         closeModal()})
     
-    let showModalByTime = (selector, time)=>{
+    const showModalByTime = (selector, time)=>{
         setTimeout(function(){
             document.querySelector(selector).style.display = "block"
             document.body.classList.remove("modal-open")
