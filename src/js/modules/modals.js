@@ -2,11 +2,9 @@ const modals = function(){    /* это функциональное выраж�
 передается в main.js и далее вызывается в функции при полной загрузке DOM*/
   
 function bindModal(triggerSelector, modalSelector, closeSelector){
-        const triggers = document.querySelectorAll(triggerSelector),
-        modal = document.querySelector(modalSelector),
-        close = document.querySelector(closeSelector)
-
-        
+        let triggers = document.querySelectorAll(triggerSelector)
+        let  modal = document.querySelector(modalSelector)
+        let close = document.querySelector(closeSelector)
         triggers.forEach((item)=>{
             item.addEventListener("click", (e)=>{
                 if(e.target){
@@ -17,35 +15,30 @@ function bindModal(triggerSelector, modalSelector, closeSelector){
             })
         })
 
-
-       let closeModal = (closingElement)=>{
-        closingElement.addEventListener("click",()=>{    
+        let closeModal = ()=>{
             modal.style.display = "none"
             document.body.classList.remove("modal-open") 
-       })
-       window.addEventListener("keydown", (e)=>{ 
-        if (e.code == "Escape")   {
-            modal.style.display = "none"
-            document.body.classList.remove("modal-open") }})
-    } 
-    closeModal(close)
-    closeModal(modal)
-
-       
-    let  showModalByTime = (selector, time)=>{
+        }
+            window.addEventListener("keydown", (e)=>{ 
+                if (e.code == "Escape")   {
+            closeModal()}})
+            close.addEventListener("click", ()=>{ 
+                    closeModal()})
+            modal.addEventListener("click", ()=>{ 
+                        closeModal()})
+    
+    let showModalByTime = (selector, time)=>{
         setTimeout(function(){
             document.querySelector(selector).style.display = "block"
             document.body.classList.remove("modal-open")
         },time)
     }
-    showModalByTime(".popup", 2000) 
+    showModalByTime(".popup", 60000) 
 }
 
     bindModal(".popup_engineer_btn", ".popup_engineer", ".popup_engineer .popup_close")
     bindModal(".phone_link", ".popup", ".popup .popup_close")
-    /* при вызове showModalByTime автоматически появляется модульное окно. 
-    Одновременно с загрузкой старницы запускается функция bindModal, где задаются события клику на крестик и 
-    подложку формы*/
+   
 
 }
 export default modals // команда для работы с "упаковщиками", не влияет на работу самого модального окна 
@@ -54,6 +47,12 @@ export default modals // команда для работы с "упаковщи
 
 
 
+
+
+
+ /* при вызове showModalByTime автоматически появляется модульное окно. 
+    Одновременно с загрузкой старницы запускается функция bindModal, где задаются события клику на крестик и 
+    подложку формы*/
 /* 
 1) создается функция  bindModal, которая принимает атрибуты:
 -элемента, на который кликают, 
