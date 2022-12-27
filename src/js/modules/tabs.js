@@ -7,8 +7,8 @@ const tabs = (headerSelector, tabSelector, contentSelector, activeClass) => {
         contents.forEach((content) => {
             content.style.display = "none";
         });
-        tabElemets.forEach((tabElemet) => {
-            tabElemet.classList.remove(activeClass);
+        tabElemets.forEach((tabElement) => {
+            tabElement.classList.remove(activeClass);
         });
     };
     const showTabContent = (i = 0) => {
@@ -19,7 +19,7 @@ const tabs = (headerSelector, tabSelector, contentSelector, activeClass) => {
     hideTabContent();
     showTabContent();
 
-    header.addEventListener("click", (e) => {
+    const handleAction = (e) => {
         const target = e.target;
         if (
             target.classList.contains(tabSelector.replace(/\./, "")) ||
@@ -31,6 +31,25 @@ const tabs = (headerSelector, tabSelector, contentSelector, activeClass) => {
                     showTabContent(i);
                 }
             });
+        }
+    };
+
+    header.addEventListener("click", (e) => {
+        handleAction(e);
+    });
+
+    header.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") {
+            handleAction(e);
+        }
+    });
+
+    header.addEventListener("mouseover", (e) => {
+        const target = e.target;
+        if (
+            target.classList.contains(tabSelector.replace(/\./, "")) ||
+            target.parentNode.classList.contains(tabSelector.replace(/\./, ""))
+        ) {
         }
     });
 };
