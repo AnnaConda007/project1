@@ -44,14 +44,7 @@ const tabs = (headerSelector, tabSelector, contentSelector, activeClass) => {
         }
     });
 
-    header.addEventListener("mouseover", (e) => {
-        const target = e.target;
-        if (
-            target.classList.contains(tabSelector.replace(/\./, "")) ||
-            target.parentNode.classList.contains(tabSelector.replace(/\./, ""))
-        ) {
-        }
-    });
+
 };
 
 export default tabs;
