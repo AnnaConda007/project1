@@ -17,7 +17,7 @@ const forms = () => {
 
     const postData = async (url, data) => {
         document.querySelector("status").innerHTML = message.loading;
-        let resultFetch = await fetch(url, {// url сервера, на который отправляются данные и от которого получим ответ 
+        const resultFetch = await fetch(url, {// url сервера, на который отправляются данные и от которого получим ответ 
             // отправляем даннные формы на сервер
             method: "POST",
             body: data,
@@ -34,16 +34,13 @@ const forms = () => {
     allForms.forEach((form) => {
         form.addEventListener("submit", (e) => {
             e.preventDefault();
-            let statusMessageSection = document.createElement("div");
+            const statusMessageSection = document.createElement("div");
             statusMessageSection.classList.add("status");
             form.appendChild(statusMessageSection);
 
             const formData = new FormData(form);/*это функция конструктор. Обычно пришется сама функция, в теле которой прописывается как 
             именно заполняется объект, и далее при вызове функции церез new объект заполняется. Но это уже готовый вариант, с прописанной логикой 'FormData()' */
-            postData(
-                "assets/server.php",
-                formData
-            ) /* вызываем функцию postData() внутри которой делаем запрос fetch. 
+            postData("assets/server.php", formData) /* вызываем функцию postData() внутри которой делаем запрос fetch. 
             Браузер ждет пока запрос будет отправлен по указанному адресу и придет ответ об отправке.*/
                 .then((resultFetch) => {
                     /* и когда браузер получит ответ - выполняется промис заданный запросом fetch, на данной строке 
