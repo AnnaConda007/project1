@@ -2,18 +2,27 @@ const modals = function () {
   /* это функциональное выражение. Ссылка на ее содержимое(сама функция) 
 передается в main.js и далее вызывается в функции при полной загрузке DOM*/
 
-  function bindModal(triggerSelector, modalSelector, closeSelector) {
+  function bindModal(triggerSelector, modalSelector, closeSelector, closeClickOverlay = "true") {
     const triggers = document.querySelectorAll(triggerSelector)
     const modal = document.querySelector(modalSelector)
     const close = document.querySelector(closeSelector)
+    const AllModalWindows = document.querySelectorAll("[data-modal]")
+    const closeAllModalWindow = () => {
+      AllModalWindows.forEach((ModalWindow) => {
+        ModalWindow.style.display = "none"
+      })
+    }
+
     triggers.forEach((trigger) => {
       trigger.addEventListener('click', (e) => {
         if (e.target) {
           e.preventDefault()
         }
+        closeAllModalWindow()
         modal.style.display = 'block'
         document.body.classList.add('modal-open')
       })
+
     })
 
     const closeModal = () => {
@@ -27,9 +36,13 @@ const modals = function () {
     })
     close.addEventListener('click', () => {
       closeModal()
+      closeAllModalWindow()
     })
-    modal.addEventListener('click', () => {
-      closeModal()
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal && closeClickOverlay) {
+        closeModal()
+        closeAllModalWindow()
+      }
     })
 
     const showModalByTime = (selector, time) => {
@@ -41,12 +54,11 @@ const modals = function () {
     showModalByTime('.popup', 60000)
   }
 
-  bindModal(
-    '.popup_engineer_btn',
-    '.popup_engineer',
-    '.popup_engineer .popup_close',
-  )
+  bindModal('.popup_engineer_btn', '.popup_engineer', '.popup_engineer .popup_close')
   bindModal('.phone_link', '.popup', '.popup .popup_close')
+  bindModal(".popup_calc_btn", ".popup_calc", ".popup_calc_close")
+  bindModal(".popup_calc_button", ".popup_calc_profile", ".popup_calc_profile_close", false)
+  bindModal(".popup_calc_profile_button", ".popup_calc_end", ".popup_calc_end_close", false)
 }
 export default modals // команда для работы с "упаковщиками", не влияет на работу самого модального окна
 
