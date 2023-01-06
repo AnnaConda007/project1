@@ -25,22 +25,22 @@ const modals = function () {
 
     })
 
-    const closeModal = () => {
-      modal.style.display = 'none'
+    const closeModal = (closeElement) => {
+      closeElement.style.display = 'none'
       document.body.classList.remove('modal-open')
     }
     window.addEventListener('keydown', (e) => {
       if (e.code == 'Escape') {
-        closeModal()
+
       }
     })
     close.addEventListener('click', () => {
-      closeModal()
+
       closeAllModalWindow()
     })
     modal.addEventListener('click', (e) => {
       if (e.target === modal && closeClickOverlay) {
-        closeModal()
+
         closeAllModalWindow()
       }
     })

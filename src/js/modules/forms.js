@@ -1,7 +1,10 @@
-const forms = () => {
+import checkNumInputs from "./checkNumInputs"
+
+
+const forms = (state) => {
     const allForms = document.querySelectorAll("form");
     const allInputs = document.querySelectorAll("input");
-    const allPhoneInputs = document.querySelectorAll(`input[name="user_phone"]`);
+
 
     const message = {
         loading: "Загрузка....",
@@ -9,11 +12,9 @@ const forms = () => {
         failure: "Что-то пошло не так..",
     };
 
-    allPhoneInputs.forEach((phoneInput) => {
-        phoneInput.addEventListener("input", () => {
-            phoneInput.value = phoneInput.value.replace(/\D/, "");
-        });
-    });
+
+    checkNumInputs(`input[name="user_phone"]`)
+
 
     const postData = async (url, data) => {
         document.querySelector("status").innerHTML = message.loading;
@@ -22,6 +23,7 @@ const forms = () => {
             method: "POST",
             body: data,
         });
+        closeModal()
         return await resultFetch.text(); //возвращаем результат вызова resultFetch в текстовом формате, то есть получаем ответ от сервера?
     };
 
@@ -38,13 +40,17 @@ const forms = () => {
             statusMessageSection.classList.add("status");
             form.appendChild(statusMessageSection);
 
-            const formData = new FormData(form);/*это функция конструктор. Обычно пришется сама функция, в теле которой прописывается как 
-            именно заполняется объект, и далее при вызове функции церез new объект заполняется. Но это уже готовый вариант, с прописанной логикой 'FormData()' */
-            postData("assets/server.php", formData) /* вызываем функцию postData() внутри которой делаем запрос fetch. 
-            Браузер ждет пока запрос будет отправлен по указанному адресу и придет ответ об отправке.*/
+            const formData = new FormData(form);/*это функция конструктор. Обычно пришется сама функция, в теле которой прописывается как  именно заполняется объект, и далее при вызове функции церез new объект заполняется. Но это уже готовый вариант, с прописанной логикой 'FormData()' */
+            if (form.getAttribute("data-calk") === "end") {
+                for (let key in state) {
+                    formData.append(key, state[key])
+                }
+            }
+
+
+            postData("assets/server.php", formData) /* вызываем функцию postData() внутри которой делаем запрос fetch. Браузер ждет пока запрос будет отправлен по указанному адресу и придет ответ об отправке.*/
                 .then((resultFetch) => {
-                    /* и когда браузер получит ответ - выполняется промис заданный запросом fetch, на данной строке 
-                          функция в then получает результат выполнения промиса(resolve)*/
+                    /* и когда браузер получит ответ - выполняется промис заданный запросом fetch, на данной строке  функция в then получает результат выполнения промиса(resolve)*/
                     console.log(resultFetch);
                     statusMessageSection.innerHTML = message.success;
                 }) // мы можем обратиться к resultFetch, которая лежит в области видимости postData(), так как вернули ее в конце вызова postData()
@@ -58,6 +64,14 @@ const forms = () => {
                     setTimeout(() => {
                         statusMessageSection.remove();
                     }, 5000);
+                    let modalCalkWindow = document.querySelector(".popup_calc_end")
+                    modalCalkWindow.style.display = 'none'
+                    document.body.classList.remove('modal-open')
+                    for (let key in state) {
+                        delete state[key]
+                    }
+
+
                 });
         });
     });
