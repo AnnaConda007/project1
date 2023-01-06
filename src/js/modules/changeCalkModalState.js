@@ -1,4 +1,5 @@
 import checkNumInputs from "./checkNumInputs"
+
 const changeCalkModalState = (state) => {
     const windowFormTabs = window.document.querySelectorAll(".balcon_icons_img")
     const windowWidth = window.document.querySelectorAll("#width")
@@ -18,12 +19,8 @@ const changeCalkModalState = (state) => {
                         state[propInObject] = i
                         break;
                     case "INPUT":
-                        if (item.getAttribute("type") === "checkbox") {
-                            i === 0 ? state[propInObject] = "Холодное" : state[propInObject] = "горячее"
-                            activeElement.forEach((checkbox, j) => {
-                                checkbox.checked = false
-                                if (j == i) { checkbox.checked = true }
-                            })
+                        if (item.getAttribute("type") === "radio") {
+                            i === 0 ? state[propInObject] = "Холодное" : state[propInObject] = "Теплое"
                         } else {
                             state[propInObject] = item.value
                         }
@@ -38,11 +35,11 @@ const changeCalkModalState = (state) => {
     }
 
 
-    addDataInObject("click", windowFormTabs, "form")
+    addDataInObject("click", windowFormTabs, "formWindow")
     addDataInObject("input", windowWidth, "width")
     addDataInObject("input", windowHeight, "height")
-    addDataInObject("change", windowType, "type")
-    addDataInObject("change", windowCheckbox, "checkbox")
+    addDataInObject("change", windowType, "typeWindow")
+    addDataInObject("change", windowCheckbox, "radio")
 
 }
 
