@@ -18,32 +18,29 @@ const modals = function () {
         if (e.target) {
           e.preventDefault()
         }
+        if (trigger.classList.contains("popup_calc_button")) { /* отловить пустой input*/ }
         closeAllModalWindow()
         modal.style.display = 'block'
         document.body.classList.add('modal-open')
       })
 
     })
-
-    const closeModal = (closeElement) => {
-      closeElement.style.display = 'none'
+    const closeModal = () => {
+      modal.style.display = 'none'
       document.body.classList.remove('modal-open')
     }
     window.addEventListener('keydown', (e) => {
       if (e.code == 'Escape') {
-
+        closeModal()
       }
     })
     close.addEventListener('click', () => {
-
-      closeAllModalWindow()
+      closeModal()
     })
-    modal.addEventListener('click', (e) => {
-      if (e.target === modal && closeClickOverlay) {
-
-        closeAllModalWindow()
-      }
+    modal.addEventListener('click', () => {
+      closeModal()
     })
+
 
     const showModalByTime = (selector, time) => {
       setTimeout(function () {
