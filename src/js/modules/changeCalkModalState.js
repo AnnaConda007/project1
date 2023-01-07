@@ -12,6 +12,7 @@ const changeCalkModalState = (state) => {
 
 
     function addDataInObject(event, activeElement, propInObject) {
+
         activeElement.forEach((item, i) => {     //?? не прописано условие что i=0/1 и i++ при каждой итерации, но i все равно увеличивается. Это осебенность цикла forEach???
             item.addEventListener(event, () => {/* при клике запускаеися цикл, перебирается вся коллекция пока не будет совпадения между "кликнутым элементом" и одним из элементов коллекции. В одном из прошлых уроков было подобное. Но там было прописано e.target. Здесь его нет, но мы все равно узнаем в каокй именно по счету элемент мы кликнули. Что здесь за это отвечает?*/
                 switch (item.nodeName) {
@@ -20,7 +21,7 @@ const changeCalkModalState = (state) => {
                         break;
                     case "INPUT":
                         if (item.getAttribute("type") === "radio") {
-                            i === 0 ? state[propInObject] = "Холодное" : state[propInObject] = "Теплое"
+                            state[propInObject] = item.value
                         } else {
                             state[propInObject] = item.value
                         }
@@ -33,6 +34,7 @@ const changeCalkModalState = (state) => {
             });
         });
     }
+
 
 
     addDataInObject("click", windowFormTabs, "formWindow")

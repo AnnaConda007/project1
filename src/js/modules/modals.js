@@ -18,7 +18,14 @@ const modals = function () {
         if (e.target) {
           e.preventDefault()
         }
-        if (trigger.classList.contains("popup_calc_button")) { /* отловить пустой input*/ }
+        if (trigger.classList.contains("popup_calc_button")) { // если пользователь нажимает на отдельную кнопку
+          const windowWidth = window.document.querySelectorAll("#width")
+          if (windowWidth.values = "") { /* отловить пустой input*/
+            closeAllModalWindow()   // выполнить условия
+            modal.style.display = 'block'
+            document.body.classList.add('modal-open')
+          }
+        } // во всех остальных случаях условие не соблюдается и кнопки открытия мод. окон работают как обычно
         closeAllModalWindow()
         modal.style.display = 'block'
         document.body.classList.add('modal-open')
@@ -37,8 +44,9 @@ const modals = function () {
     close.addEventListener('click', () => {
       closeModal()
     })
-    modal.addEventListener('click', () => {
-      closeModal()
+    modal.addEventListener('click', (e) => {
+      if (e.target == modal) { closeModal() }
+
     })
 
 
