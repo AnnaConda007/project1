@@ -3,9 +3,13 @@ import modals from "./modules/modals"
 import tabs from "./modules/tabs"
 import forms from "./modules/forms"
 import changeCalkModalState from "./modules/changeCalkModalState"
+import timer from "./modules/timer"
+
 
 window.addEventListener("DOMContentLoaded", function () {
-   let calkModalState = {}
+   let deadline = "2023-02-01"
+   timer(".container1", deadline)
+   const calkModalState = {}
    changeCalkModalState(calkModalState)
    modals()
    tabs(".glazing_slider", ".glazing_block", ".glazing_content", "active")
