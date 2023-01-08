@@ -10,9 +10,9 @@ const timer = (id, deadline) => {
     const getTime = (endTime) => {
         const time = Date.parse(endTime) - Date.parse(new Date()) // из дедлайна вычитается настоящее время, оазница сохраняется в переменную
         const seconds = Math.floor((time / 1000) % 60) // все секунды поделили на 60(минут) и сохранили остаток
-        const minutes = Math.floor(time / 1000 / 60) % 60 // все секунды сначала поделили на 60(часы), а потом еще раз на 60(минут) и сохранили остаток от деления
-        const hours = Math.floor((time / 60 / 60) % 24) //все часы поделили на 24 и оставили остаток
-        const days = Math.floor(time / 1000 / 60 / 60 / 24)
+        const minutes = Math.floor((time / 1000) / 60) % 60 // все секунды сначала поделили на 60(часы), а потом еще раз на 60(минут) и сохранили остаток от деления
+        const hours = Math.floor(((time / 1000) / 60 / 60) % 24) //все часы поделили на 24 и оставили остаток
+        const days = Math.floor((time / 1000) / 60 / 60 / 24)
 
         return {
             total: time,
