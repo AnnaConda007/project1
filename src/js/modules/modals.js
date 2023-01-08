@@ -7,9 +7,12 @@ const modals = function () {
     const modal = document.querySelector(modalSelector)
     const close = document.querySelector(closeSelector)
     const AllModalWindows = document.querySelectorAll("[data-modal]")
+    let scroll = calkScrollSize()
+
     const closeAllModalWindow = () => {
       AllModalWindows.forEach((ModalWindow) => {
         ModalWindow.style.display = "none"
+        document.body.style.marginRight = `0px`
       })
     }
 
@@ -18,23 +21,18 @@ const modals = function () {
         if (e.target) {
           e.preventDefault()
         }
-        if (trigger.classList.contains("popup_calc_button")) { // если пользователь нажимает на отдельную кнопку
-          const windowWidth = window.document.querySelectorAll("#width")
-          if (windowWidth.values = "") { /* отловить пустой input*/
-            closeAllModalWindow()   // выполнить условия
-            modal.style.display = 'block'
-            document.body.classList.add('modal-open')
-          }
-        } // во всех остальных случаях условие не соблюдается и кнопки открытия мод. окон работают как обычно
+
         closeAllModalWindow()
         modal.style.display = 'block'
         document.body.classList.add('modal-open')
+        document.body.style.marginRight = `${scroll}px`
       })
 
     })
     const closeModal = () => {
       modal.style.display = 'none'
       document.body.classList.remove('modal-open')
+      document.body.style.marginRight = `0px`
     }
     window.addEventListener('keydown', (e) => {
       if (e.code == 'Escape') {
@@ -56,7 +54,23 @@ const modals = function () {
         document.body.classList.remove('modal-open')
       }, time)
     }
+
+    function calkScrollSize() {
+      const div = document.createElement("div")
+      div.style.width = "50px"
+      div.style.height = "50px"
+      div.style.overflowY = "scroll"
+      div.style.visibility = "hidden"
+      document.body.appendChild(div)
+      let scrollWidth = div.offsetWidth - div.clientWidth
+      div.remove()
+      return scrollWidth
+    }
+
+
+
     showModalByTime('.popup', 60000)
+
   }
 
   bindModal('.popup_engineer_btn', '.popup_engineer', '.popup_engineer .popup_close')
