@@ -71,7 +71,7 @@ const modals = function () {
       return scrollWidth;
     }
 
-    showModalByTime(".popup_engineer", 60000);
+    showModalByTime('.popup_engineer', 60000)
   }
 
   bindModal(
