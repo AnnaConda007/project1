@@ -18,7 +18,7 @@ const images = () => {
             const linkToImg = target.parentNode.getAttribute("href")
             img.setAttribute("src", linkToImg)
         }
-        if (target && target.matches("div.popup")) {
+        if (target && target.matches("div.popup")) { //div.popup добавляется на 6 строке
             div.style.display = "none"
         }
     })
