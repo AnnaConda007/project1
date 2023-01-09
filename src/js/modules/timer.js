@@ -1,11 +1,5 @@
 const timer = (id, deadline) => {
-    const addZero = (number) => {
-        if (number <= 9) {
-            return '0' + number
-        } else {
-            return number
-        }
-    }
+    const addZero = (number) => (number <= 9 ? '0' + number : number)
 
     const getTime = (endTime) => {
         const time = Date.parse(endTime) - Date.parse(new Date()) // из дедлайна вычитается настоящее время, оазница сохраняется в переменную
@@ -16,10 +10,10 @@ const timer = (id, deadline) => {
 
         return {
             total: time,
-            days: days,
-            hours: hours,
-            minutes: minutes,
-            seconds: seconds,
+            days,
+            hours,
+            minutes,
+            seconds,
         }
     }
 
